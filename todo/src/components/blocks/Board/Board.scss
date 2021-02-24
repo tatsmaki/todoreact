@@ -1,0 +1,18 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
+
+  .board-tools {
+    width: 95%;
+    height: 10vh;
+  }
+
+  .columns {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+  }
+}

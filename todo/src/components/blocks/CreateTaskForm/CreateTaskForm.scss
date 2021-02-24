@@ -1,0 +1,12 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 8vw;
+  margin: auto;
+  border: 1px black solid;
+
+  .buttons {
+    display: flex;
+  }
+}
