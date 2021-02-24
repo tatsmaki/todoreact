@@ -7,9 +7,10 @@ import TaskList from '../TaskList';
 interface ColumnProps {
   count: number;
   name: string;
+  dataKey: string;
   data: Array<string>;
-  addNewTask: (name: string, description: string) => void;
-  deleteTask: (name: string, id: number) => void;
+  addNewTask: (dataKey: string, description: string) => void;
+  deleteTask: (dataKey: string, id: number) => void;
 }
 
 interface ColumnState {
@@ -37,10 +38,10 @@ class Column extends Component<ColumnProps, ColumnState> {
   }
 
   confirmNewTask() {
-    const { addNewTask, name } = this.props;
+    const { addNewTask, dataKey } = this.props;
     const { newTask } = this.state;
     this.setState({ isCreateNewTask: false });
-    addNewTask(name, newTask);
+    addNewTask(dataKey, newTask);
   }
 
   canselNewTask() {
@@ -53,7 +54,7 @@ class Column extends Component<ColumnProps, ColumnState> {
 
   render() {
     const { count, name, data } = this.props;
-    const { deleteTask } = this.props;
+    const { dataKey, deleteTask } = this.props;
     const { isCreateNewTask } = this.state;
     return (
       <div className="column">
@@ -70,7 +71,11 @@ class Column extends Component<ColumnProps, ColumnState> {
           canselNewTask={this.canselNewTask}
           taskWrite={this.taskWrite}
         />
-        <TaskList name={name} data={data} deleteTask={deleteTask} />
+        <TaskList
+          dataKey={dataKey}
+          data={data}
+          deleteTask={deleteTask}
+        />
       </div>
     );
   }

@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import Button from '../../elements/Button';
 
 interface TaskProps {
-  name: string;
+  dataKey: string;
   description: string;
   id: number;
-  deleteTask: (name: string, id: number) => void;
+  deleteTask: (dataKey: string, id: number) => void;
 }
 
 class Task extends Component<TaskProps, {}> {
@@ -21,8 +21,8 @@ class Task extends Component<TaskProps, {}> {
   }
 
   deleteTask() {
-    const { deleteTask, name, id } = this.props;
-    deleteTask(name, id);
+    const { deleteTask, dataKey, id } = this.props;
+    deleteTask(dataKey, id);
   }
 
   render() {

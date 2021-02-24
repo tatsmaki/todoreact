@@ -5,9 +5,7 @@ import Column from '../Column';
 interface BoardProps {}
 
 interface BoardState {
-  toDo: Array<string>;
-  inProgress: Array<string>;
-  done: Array<string>;
+  [key: string]: Array<string>
 }
 
 class Board extends Component<BoardProps, BoardState> {
@@ -24,56 +22,18 @@ class Board extends Component<BoardProps, BoardState> {
     this.deleteTask = this.deleteTask.bind(this);
   }
 
-  addNewTask(name: string, description: string) {
+  addNewTask(dataKey: string, description: string) {
     if (description) {
-      switch (name) {
-        case 'To Do': {
-          this.setState((prevState) => ({
-            toDo: [...prevState.toDo, description],
-          }));
-          break;
-        }
-        case 'In Progress': {
-          this.setState((prevState) => ({
-            inProgress: [...prevState.inProgress, description],
-          }));
-          break;
-        }
-        case 'Done': {
-          this.setState((prevState) => ({
-            done: [...prevState.done, description],
-          }));
-          break;
-        }
-        default:
-          break;
-      }
+      this.setState((prevState: BoardState) => ({
+        [dataKey]: [...prevState[dataKey], description],
+      }));
     }
   }
 
-  deleteTask(name: string, id: number) {
-    switch (name) {
-      case 'To Do': {
-        this.setState((prevState) => ({
-          toDo: prevState.toDo.filter((_, i) => i !== id),
-        }));
-        break;
-      }
-      case 'In Progress': {
-        this.setState((prevState) => ({
-          inProgress: prevState.inProgress.filter((_, i) => i !== id),
-        }));
-        break;
-      }
-      case 'Done': {
-        this.setState((prevState) => ({
-          done: prevState.done.filter((_, i) => i !== id),
-        }));
-        break;
-      }
-      default:
-        break;
-    }
+  deleteTask(dataKey: string, id: number) {
+    this.setState((prevState: BoardState) => ({
+      [dataKey]: prevState[dataKey].filter((_: string, i: number) => i !== id),
+    }));
   }
 
   render() {
@@ -85,6 +45,7 @@ class Board extends Component<BoardProps, BoardState> {
           <Column
             count={toDo.length}
             name="To Do"
+            dataKey="toDo"
             data={toDo}
             addNewTask={this.addNewTask}
             deleteTask={this.deleteTask}
@@ -92,6 +53,7 @@ class Board extends Component<BoardProps, BoardState> {
           <Column
             count={inProgress.length}
             name="In Progress"
+            dataKey="inProgress"
             data={inProgress}
             addNewTask={this.addNewTask}
             deleteTask={this.deleteTask}
@@ -99,6 +61,7 @@ class Board extends Component<BoardProps, BoardState> {
           <Column
             count={done.length}
             name="Done"
+            dataKey="done"
             data={done}
             addNewTask={this.addNewTask}
             deleteTask={this.deleteTask}

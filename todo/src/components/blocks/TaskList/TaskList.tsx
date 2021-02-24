@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import Task from '../Task';
 
 interface TaskListProps {
-  name: string;
+  dataKey: string;
   data: Array<string>;
-  deleteTask: (name: string, id: number) => void;
+  deleteTask: (dataKey: string, id: number) => void;
 }
 
 class TaskList extends Component<TaskListProps, {}> {
@@ -17,14 +17,14 @@ class TaskList extends Component<TaskListProps, {}> {
   }
 
   render() {
-    const { data, name, deleteTask } = this.props;
+    const { dataKey, data, deleteTask } = this.props;
     return (
       <div className="task-list">
         {data.map((item: string, i: number) => (
           <Task
-            name={name}
             description={item}
             key={uuidv4()}
+            dataKey={dataKey}
             id={i}
             deleteTask={deleteTask}
           />
