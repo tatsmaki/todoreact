@@ -23,10 +23,18 @@ class CreateTaskForm extends Component<CreateTaskFormProps, {}> {
     if (isRender) {
       return (
         <div className="form">
-          <Textarea taskWrite={taskWrite} />
+          <Textarea
+            taskWrite={taskWrite}
+          />
           <div className="buttons">
-            <Button click={confirmNewTask} content="Add" />
-            <Button click={canselNewTask} content="Cansel" />
+            <Button
+              click={confirmNewTask}
+              content="Add"
+            />
+            <Button
+              click={canselNewTask}
+              content="Cansel"
+            />
           </div>
         </div>
       );

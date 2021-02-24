@@ -1,71 +1,81 @@
 import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
+// import initialBoard from './initialBoard';
+import testBoard from './testBoard';
 import Column from '../Column';
 
 interface BoardProps {}
 
 interface BoardState {
-  [key: string]: Array<string>
+  tasks: {
+    [key: string]: {
+      id: string
+      content: string
+    }
+  }
+  columns: {
+    [key: string]: {
+      title: string
+      id: string
+      tasksOrder: Array<string>
+    }
+  }
+  columnOrder: Array<string>
 }
 
 class Board extends Component<BoardProps, BoardState> {
   constructor(props: BoardProps) {
     super(props);
 
-    this.state = {
-      toDo: ['task6', 'task7'],
-      inProgress: ['task4', 'task5'],
-      done: ['task1', 'task2', 'task3'],
-    };
+    this.state = testBoard;
 
     this.addNewTask = this.addNewTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
   }
 
-  addNewTask(dataKey: string, description: string) {
-    if (description) {
-      this.setState((prevState: BoardState) => ({
-        [dataKey]: [...prevState[dataKey], description],
-      }));
-    }
+  addNewTask(columnId: string, description: string) {
+    const newState = { ...this.state };
+    const newTaskId = uuidv4();
+    newState.tasks[newTaskId] = {
+      id: newTaskId,
+      content: description,
+    };
+    newState.columns[columnId].tasksOrder.push(newTaskId);
+    this.setState(newState);
   }
 
-  deleteTask(dataKey: string, id: number) {
-    this.setState((prevState: BoardState) => ({
-      [dataKey]: prevState[dataKey].filter((_: string, i: number) => i !== id),
-    }));
+  deleteTask(columnId: string, taskId: string) {
+    const newState = { ...this.state };
+    delete newState.tasks[taskId];
+    newState.columns[columnId].tasksOrder = newState.columns[columnId].tasksOrder
+      .filter((id: string) => id !== taskId);
+    this.setState(newState);
   }
 
   render() {
-    const { toDo, inProgress, done } = this.state;
+    const { tasks, columns, columnOrder } = this.state;
     return (
       <div className="board">
         <div className="board-tools" />
         <div className="columns">
-          <Column
-            count={toDo.length}
-            name="To Do"
-            dataKey="toDo"
-            data={toDo}
-            addNewTask={this.addNewTask}
-            deleteTask={this.deleteTask}
-          />
-          <Column
-            count={inProgress.length}
-            name="In Progress"
-            dataKey="inProgress"
-            data={inProgress}
-            addNewTask={this.addNewTask}
-            deleteTask={this.deleteTask}
-          />
-          <Column
-            count={done.length}
-            name="Done"
-            dataKey="done"
-            data={done}
-            addNewTask={this.addNewTask}
-            deleteTask={this.deleteTask}
-          />
+          {
+            columnOrder.map((id: string) => {
+              const column = columns[id];
+              return (
+                <Column
+                  count={column.tasksOrder.length}
+                  title={column.title}
+                  columnId={column.id}
+                  key={column.id}
+                  tasks={tasks}
+                  tasksOrder={column.tasksOrder}
+                  addNewTask={this.addNewTask}
+                  deleteTask={this.deleteTask}
+                />
+              );
+            })
+          }
         </div>
       </div>
     );

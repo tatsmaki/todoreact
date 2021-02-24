@@ -5,12 +5,18 @@ import CreateTaskForm from '../CreateTaskForm';
 import TaskList from '../TaskList';
 
 interface ColumnProps {
-  count: number;
-  name: string;
-  dataKey: string;
-  data: Array<string>;
-  addNewTask: (dataKey: string, description: string) => void;
-  deleteTask: (dataKey: string, id: number) => void;
+  count: number
+  title: string
+  columnId: string
+  tasks: {
+    [key: string]: {
+      id: string
+      content: string
+    }
+  }
+  tasksOrder: Array<string>
+  addNewTask: (columnId: string, description: string) => void
+  deleteTask: (columnId: string, taskId: string) => void
 }
 
 interface ColumnState {
@@ -38,10 +44,10 @@ class Column extends Component<ColumnProps, ColumnState> {
   }
 
   confirmNewTask() {
-    const { addNewTask, dataKey } = this.props;
+    const { addNewTask, columnId } = this.props;
     const { newTask } = this.state;
     this.setState({ isCreateNewTask: false });
-    addNewTask(dataKey, newTask);
+    addNewTask(columnId, newTask);
   }
 
   canselNewTask() {
@@ -53,17 +59,26 @@ class Column extends Component<ColumnProps, ColumnState> {
   }
 
   render() {
-    const { count, name, data } = this.props;
-    const { dataKey, deleteTask } = this.props;
+    const {
+      count,
+      title,
+      columnId,
+      tasks,
+      tasksOrder,
+      deleteTask,
+    } = this.props;
     const { isCreateNewTask } = this.state;
     return (
       <div className="column">
         <div className="tools">
           <div className="column_header">
             <span className="count">{count}</span>
-            <span className="name">{name}</span>
+            <span className="title">{title}</span>
           </div>
-          <Button click={this.createNewTask} content="+" />
+          <Button
+            click={this.createNewTask}
+            content="+"
+          />
         </div>
         <CreateTaskForm
           isRender={isCreateNewTask}
@@ -72,8 +87,9 @@ class Column extends Component<ColumnProps, ColumnState> {
           taskWrite={this.taskWrite}
         />
         <TaskList
-          dataKey={dataKey}
-          data={data}
+          columnId={columnId}
+          tasks={tasks}
+          tasksOrder={tasksOrder}
           deleteTask={deleteTask}
         />
       </div>

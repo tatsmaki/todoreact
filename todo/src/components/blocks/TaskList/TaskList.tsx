@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import Task from '../Task';
 
 interface TaskListProps {
-  dataKey: string;
-  data: Array<string>;
-  deleteTask: (dataKey: string, id: number) => void;
+  columnId: string
+  tasks: {
+    [key: string]: {
+      id: string
+      content: string
+    }
+  }
+  tasksOrder: Array<string>
+  deleteTask: (columnId: string, taskId: string) => void;
 }
 
 class TaskList extends Component<TaskListProps, {}> {
@@ -17,18 +22,28 @@ class TaskList extends Component<TaskListProps, {}> {
   }
 
   render() {
-    const { dataKey, data, deleteTask } = this.props;
+    const {
+      columnId,
+      tasks,
+      tasksOrder,
+      deleteTask,
+    } = this.props;
     return (
       <div className="task-list">
-        {data.map((item: string, i: number) => (
-          <Task
-            description={item}
-            key={uuidv4()}
-            dataKey={dataKey}
-            id={i}
-            deleteTask={deleteTask}
-          />
-        ))}
+        {
+          tasksOrder.map((item: string) => {
+            const task = tasks[item];
+            return (
+              <Task
+                description={task.content}
+                key={task.id}
+                columnId={columnId}
+                taskId={task.id}
+                deleteTask={deleteTask}
+              />
+            );
+          })
+        }
       </div>
     );
   }
