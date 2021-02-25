@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 
 import CreateTaskFormProps from './types';
 
-import TextArea from '../../elements/textArea';
-import Button from '../../elements/button';
+import TextArea from '../../elements/TextArea';
+import Button from '../../elements/Button';
 
 import { StyledForm, StyledWrapper } from './styles';
 

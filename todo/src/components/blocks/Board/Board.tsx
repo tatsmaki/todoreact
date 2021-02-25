@@ -5,10 +5,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { BoardProps, BoardState } from './types';
 import initialBoard from './initialBoard';
 
-import Column from '../column';
+import Column from '../Column';
 
 import { StyledBoard, StyledBoardTools, StyledColumns } from './styles';
-import SearchTool from '../searchTool';
+import SearchTool from '../SearchTool';
 
 class Board extends Component<BoardProps, BoardState> {
   state: BoardState = initialBoard;

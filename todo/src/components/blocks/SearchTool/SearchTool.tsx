@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 
 import SearchToolProps from './types';
 
-import Input from '../../elements/input';
+import Input from '../../elements/Input';
 
 import StyledSearchWrapper from './styles';
 

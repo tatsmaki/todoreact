@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import { ColumnProps, ColumnState } from './types';
 
-import Button from '../../elements/button';
-import CreateTaskForm from '../createTaskForm';
-import TaskList from '../taskList';
+import Button from '../../elements/Button';
+import CreateTaskForm from '../CreateTaskForm';
+import TaskList from '../TaskList';
 
 import {
   StyledColumn,
