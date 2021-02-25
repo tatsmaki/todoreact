@@ -1,14 +1,27 @@
 import React, { PureComponent } from 'react';
 
-import ButtonProps from './ButtonTypes';
+import { ButtonProps } from './types';
+
+import StyledButton from './styles';
 
 class Button extends PureComponent<ButtonProps, {}> {
   render() {
-    const { click, content } = this.props;
+    const {
+      children,
+      buttonWidth,
+      backgroundColor,
+      border,
+      handleClick,
+    } = this.props;
     return (
-      <button className="button" type="button" onClick={click}>
-        {content}
-      </button>
+      <StyledButton
+        buttonWidth={buttonWidth}
+        backgroundColor={backgroundColor}
+        border={border}
+        onClick={handleClick}
+      >
+        {children}
+      </StyledButton>
     );
   }
 }

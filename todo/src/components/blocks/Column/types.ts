@@ -1,4 +1,4 @@
-import { BoardTasks } from '../Board/BoardTypes';
+import { BoardTasks } from '../Board/types';
 
 export interface ColumnProps {
   count: number
@@ -6,6 +6,7 @@ export interface ColumnProps {
   columnId: string
   tasks: BoardTasks
   tasksOrder: Array<string>
+  filter: string
   addNewTask: (columnId: string, description: string) => void
   deleteTask: (columnId: string, taskId: string) => void
 }

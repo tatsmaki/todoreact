@@ -1,4 +1,3 @@
-import './Textarea.scss';
-import Textarea from './Textarea';
+import TextArea from './TextArea';
 
-export default Textarea;
+export default TextArea;

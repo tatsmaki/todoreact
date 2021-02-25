@@ -1,37 +1,48 @@
 import React, { Component } from 'react';
 
-import { ColumnProps, ColumnState } from './ColumnTypes';
+import { ColumnProps, ColumnState } from './types';
 
 import Button from '../../elements/Button';
 import CreateTaskForm from '../CreateTaskForm';
 import TaskList from '../TaskList';
 
-class Column extends Component<ColumnProps, ColumnState> {
-  constructor(props: ColumnProps) {
-    super(props);
-    this.state = {
-      isCreateNewTask: false,
-      newTask: '',
-    };
-  }
+import {
+  StyledColumn,
+  StyledHeader,
+  StyledTitle,
+  StyledColumnTools,
+  StyledTaskCount,
+} from './styles';
 
-  private createNewTask = () => {
+class Column extends Component<ColumnProps, ColumnState> {
+  state = {
+    isCreateNewTask: false,
+    newTask: '',
+  };
+
+  createNewTask = () => {
     this.setState({ isCreateNewTask: true });
   };
 
-  private confirmNewTask = () => {
+  confirmNewTask = () => {
     const { addNewTask, columnId } = this.props;
     const { newTask } = this.state;
-    this.setState({ isCreateNewTask: false });
     addNewTask(columnId, newTask);
+    this.setState({
+      isCreateNewTask: false,
+      newTask: '',
+    });
   };
 
-  private canselNewTask = () => {
-    this.setState({ isCreateNewTask: false });
+  canselNewTask = () => {
+    this.setState({
+      isCreateNewTask: false,
+      newTask: '',
+    });
   };
 
-  private taskWrite = (event: React.FormEvent<HTMLTextAreaElement>) => {
-    this.setState({ newTask: (event.target as HTMLTextAreaElement).value });
+  taskWrite = (value: string) => {
+    this.setState({ newTask: value });
   };
 
   render() {
@@ -41,21 +52,32 @@ class Column extends Component<ColumnProps, ColumnState> {
       columnId,
       tasks,
       tasksOrder,
+      filter,
       deleteTask,
     } = this.props;
     const { isCreateNewTask } = this.state;
     return (
-      <div className="column">
-        <div className="tools">
-          <div className="column_header">
-            <span className="count">{count}</span>
-            <span className="title">{title}</span>
-          </div>
+      <StyledColumn>
+        <StyledColumnTools>
+          <StyledHeader>
+            <StyledTaskCount>
+              {count}
+            </StyledTaskCount>
+            <StyledTitle>
+              {title}
+            </StyledTitle>
+          </StyledHeader>
           <Button
-            click={this.createNewTask}
-            content="+"
-          />
-        </div>
+            buttonWidth="3vw"
+            backgroundColor="none"
+            border="none"
+            handleClick={this.createNewTask}
+          >
+            <span className="material-icons">
+              add
+            </span>
+          </Button>
+        </StyledColumnTools>
         <CreateTaskForm
           isRender={isCreateNewTask}
           confirmNewTask={this.confirmNewTask}
@@ -66,9 +88,10 @@ class Column extends Component<ColumnProps, ColumnState> {
           columnId={columnId}
           tasks={tasks}
           tasksOrder={tasksOrder}
+          filter={filter}
           deleteTask={deleteTask}
         />
-      </div>
+      </StyledColumn>
     );
   }
 }
