@@ -5,4 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: "module",
   },
+  rules: {
+    "react/jsx-props-no-spreading": "off",
+  }
 };

@@ -1,23 +1,13 @@
 import React, { Component } from 'react';
+import { Droppable, DroppableProvided } from 'react-beautiful-dnd';
+
+import TaskListProps from './TaskListTypes';
 
 import Task from '../Task';
-
-interface TaskListProps {
-  columnId: string
-  tasks: {
-    [key: string]: {
-      id: string
-      content: string
-    }
-  }
-  tasksOrder: Array<string>
-  deleteTask: (columnId: string, taskId: string) => void;
-}
 
 class TaskList extends Component<TaskListProps, {}> {
   constructor(props: TaskListProps) {
     super(props);
-
     this.state = {};
   }
 
@@ -29,22 +19,30 @@ class TaskList extends Component<TaskListProps, {}> {
       deleteTask,
     } = this.props;
     return (
-      <div className="task-list">
-        {
-          tasksOrder.map((item: string) => {
-            const task = tasks[item];
-            return (
-              <Task
-                description={task.content}
-                key={task.id}
-                columnId={columnId}
-                taskId={task.id}
-                deleteTask={deleteTask}
-              />
-            );
-          })
-        }
-      </div>
+      <Droppable droppableId={columnId}>
+        {(provided: DroppableProvided) => (
+          <div
+            className="task-list"
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {tasksOrder.map((item: string, index: number) => {
+              const task = tasks[item];
+              return (
+                <Task
+                  description={task.content}
+                  key={task.id}
+                  index={index}
+                  columnId={columnId}
+                  taskId={task.id}
+                  deleteTask={deleteTask}
+                />
+              );
+            })}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     );
   }
 }

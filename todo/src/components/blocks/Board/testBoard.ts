@@ -14,7 +14,6 @@ const testBoard = {
     [task4]: { id: task4, content: 'nice uuid btw' },
     [task5]: { id: task5, content: 'go home' },
   },
-
   columns: {
     column1: {
       title: 'To Do',
@@ -32,8 +31,7 @@ const testBoard = {
       tasksOrder: [task3, task4],
     },
   },
-
-  columnOrder: ['column1', 'column2', 'column3'],
+  columnsOrder: ['column1', 'column2', 'column3'],
 };
 
 export default testBoard;

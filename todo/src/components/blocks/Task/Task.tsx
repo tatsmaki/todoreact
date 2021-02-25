@@ -1,47 +1,37 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { Draggable, DraggableProvided } from 'react-beautiful-dnd';
+
+import TaskProps from './TaskTypes';
 
 import Button from '../../elements/Button';
 
-interface TaskProps {
-  description: string
-  columnId: string
-  taskId: string
-  deleteTask: (columnId: string, taskId: string) => void
-}
-
-class Task extends Component<TaskProps, {}> {
-  task: HTMLDivElement;
-
-  constructor(props: TaskProps) {
-    super(props);
-
-    this.task = null;
-
-    this.deleteTask = this.deleteTask.bind(this);
-  }
-
-  deleteTask() {
+class Task extends PureComponent<TaskProps, {}> {
+  private deleteTask = () => {
     const { deleteTask, columnId, taskId } = this.props;
     deleteTask(columnId, taskId);
-  }
+  };
 
   render() {
-    const { description } = this.props;
+    const { description, taskId, index } = this.props;
     return (
-      <div
-        className="task"
-        ref={(task: HTMLDivElement) => {
-          this.task = task;
-        }}
-      >
-        <span className="description">
-          {description}
-        </span>
-        <Button
-          click={this.deleteTask}
-          content="×"
-        />
-      </div>
+      <Draggable draggableId={taskId} index={index}>
+        {(provided: DraggableProvided) => (
+          <div
+            className="task"
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            <span className="description">
+              {description}
+            </span>
+            <Button
+              click={this.deleteTask}
+              content="×"
+            />
+          </div>
+        )}
+      </Draggable>
     );
   }
 }

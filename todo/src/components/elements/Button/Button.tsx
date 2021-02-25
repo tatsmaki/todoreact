@@ -1,17 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-interface ButtonProps {
-  click: () => void;
-  content: string;
-}
+import ButtonProps from './ButtonTypes';
 
-class Button extends Component<ButtonProps, {}> {
-  constructor(props: ButtonProps) {
-    super(props);
-
-    this.state = {};
-  }
-
+class Button extends PureComponent<ButtonProps, {}> {
   render() {
     const { click, content } = this.props;
     return (

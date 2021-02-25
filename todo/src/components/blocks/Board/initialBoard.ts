@@ -5,7 +5,6 @@ const initialBoard = {
       content: 'Add your tasks',
     },
   },
-
   columns: {
     column1: {
       title: 'To Do',
@@ -23,8 +22,7 @@ const initialBoard = {
       tasksOrder: [] as string[],
     },
   },
-
-  columnOrder: ['column1', 'column2', 'column3'],
+  columnsOrder: ['column1', 'column2', 'column3'],
 };
 
 export default initialBoard;
