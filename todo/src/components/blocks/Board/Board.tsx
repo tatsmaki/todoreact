@@ -8,6 +8,7 @@ import initialBoard from './initialBoard';
 import Column from '../Column';
 
 import { StyledBoard, StyledBoardTools, StyledColumns } from './styles';
+import SearchTool from '../SearchTool';
 
 class Board extends Component<BoardProps, BoardState> {
   state: BoardState = initialBoard;
@@ -89,11 +90,24 @@ class Board extends Component<BoardProps, BoardState> {
     }
   };
 
+  filterCards = (value: string) => {
+    this.setState({ filter: value });
+  };
+
   render() {
-    const { tasks, columns, columnsOrder } = this.state;
+    const {
+      tasks,
+      columns,
+      columnsOrder,
+      filter,
+    } = this.state;
     return (
       <StyledBoard>
-        <StyledBoardTools />
+        <StyledBoardTools>
+          <SearchTool
+            filterCards={this.filterCards}
+          />
+        </StyledBoardTools>
         <StyledColumns>
           <DragDropContext onDragEnd={this.onDragEnd}>
             {columnsOrder.map((id: string) => {
@@ -106,6 +120,7 @@ class Board extends Component<BoardProps, BoardState> {
                   key={column.id}
                   tasks={tasks}
                   tasksOrder={column.tasksOrder}
+                  filter={filter}
                   addNewTask={this.addNewTask}
                   deleteTask={this.deleteTask}
                 />

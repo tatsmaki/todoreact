@@ -41,8 +41,8 @@ class Column extends Component<ColumnProps, ColumnState> {
     });
   };
 
-  taskWrite = (event: React.FormEvent<HTMLTextAreaElement>) => {
-    this.setState({ newTask: (event.target as HTMLTextAreaElement).value });
+  taskWrite = (value: string) => {
+    this.setState({ newTask: value });
   };
 
   render() {
@@ -52,6 +52,7 @@ class Column extends Component<ColumnProps, ColumnState> {
       columnId,
       tasks,
       tasksOrder,
+      filter,
       deleteTask,
     } = this.props;
     const { isCreateNewTask } = this.state;
@@ -66,8 +67,15 @@ class Column extends Component<ColumnProps, ColumnState> {
               {title}
             </StyledTitle>
           </StyledHeader>
-          <Button wide={false} handleClick={this.createNewTask}>
-            +
+          <Button
+            buttonWidth="3vw"
+            backgroundColor="none"
+            border="none"
+            handleClick={this.createNewTask}
+          >
+            <span className="material-icons">
+              add
+            </span>
           </Button>
         </StyledColumnTools>
         <CreateTaskForm
@@ -80,6 +88,7 @@ class Column extends Component<ColumnProps, ColumnState> {
           columnId={columnId}
           tasks={tasks}
           tasksOrder={tasksOrder}
+          filter={filter}
           deleteTask={deleteTask}
         />
       </StyledColumn>

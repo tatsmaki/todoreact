@@ -1,20 +1,17 @@
 import styled from 'styled-components';
 
-interface StyledButtonProps {
-  wide: boolean
-}
+import { StyledButtonProps } from './types';
 
 const StyledButton = styled.button`
-  width: ${(props: StyledButtonProps) => (props.wide ? '49%' : '3vw')};
+  width: ${(props: StyledButtonProps) => props.buttonWidth};
   height: 3vw;
-  background: ${(props: StyledButtonProps) => (props.wide ? '#ffffff' : 'none')};
-  border: ${(props: StyledButtonProps) => (props.wide ? '1px rgba(0, 0, 0, 0.1) solid' : 'none')};
+  background: ${(props: StyledButtonProps) => props.backgroundColor};
+  border: ${(props: StyledButtonProps) => props.border};
   border-radius: 0.5vw;
-  font-size: ${(props: StyledButtonProps) => (props.wide ? '' : '2vw')};
+  font-family: 'Open Sans', sans-serif;
+  outline: none;
 
   &:hover {
-    outline: none;
-    color: blue;
     cursor: pointer;
   }
 `;

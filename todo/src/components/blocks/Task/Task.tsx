@@ -5,12 +5,15 @@ import TaskProps from './types';
 
 import Button from '../../elements/Button';
 
-import { StyledTask, StyledTaskDescription } from './styles';
+import { StyledTask, StyledTaskDescription, StyledTaskToolsWrapper } from './styles';
 
 class Task extends PureComponent<TaskProps, {}> {
   deleteTask = () => {
     const { deleteTask, columnId, taskId } = this.props;
     deleteTask(columnId, taskId);
+  };
+
+  editTask = () => {
   };
 
   render() {
@@ -26,9 +29,18 @@ class Task extends PureComponent<TaskProps, {}> {
             <StyledTaskDescription>
               {description}
             </StyledTaskDescription>
-            <Button wide={false} handleClick={this.deleteTask}>
-              ×
-            </Button>
+            <StyledTaskToolsWrapper>
+              <Button
+                buttonWidth="3vw"
+                backgroundColor="none"
+                border="none"
+                handleClick={this.deleteTask}
+              >
+                <span className="material-icons">
+                  close
+                </span>
+              </Button>
+            </StyledTaskToolsWrapper>
           </StyledTask>
         )}
       </Draggable>

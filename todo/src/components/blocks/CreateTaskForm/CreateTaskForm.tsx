@@ -22,10 +22,20 @@ class CreateTaskForm extends PureComponent<CreateTaskFormProps, {}> {
             taskWrite={taskWrite}
           />
           <StyledWrapper>
-            <Button wide handleClick={confirmNewTask}>
+            <Button
+              buttonWidth="49%"
+              backgroundColor="#fff"
+              border="1px rgba(0, 0, 0, 0.1) solid"
+              handleClick={confirmNewTask}
+            >
               Add
             </Button>
-            <Button wide handleClick={canselNewTask}>
+            <Button
+              buttonWidth="49%"
+              backgroundColor="#fff"
+              border="1px rgba(0, 0, 0, 0.1) solid"
+              handleClick={canselNewTask}
+            >
               Cansel
             </Button>
           </StyledWrapper>

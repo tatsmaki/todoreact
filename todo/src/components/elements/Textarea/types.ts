@@ -1,5 +1,5 @@
 export interface TextAreaProps {
-  taskWrite: (event: React.FormEvent<HTMLTextAreaElement>) => void
+  taskWrite: (value: string) => void
 }
 
 export interface TextAreaState {

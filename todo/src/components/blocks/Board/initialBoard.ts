@@ -34,6 +34,7 @@ const testBoard = {
     },
   },
   columnsOrder: ['column1', 'column2', 'column3'],
+  filter: '',
 };
 
 // const initialBoard = {
@@ -61,6 +62,7 @@ const testBoard = {
 //     },
 //   },
 //   columnsOrder: ['column1', 'column2', 'column3'],
+//   filter: '',
 // };
 
 // export default initialBoard;

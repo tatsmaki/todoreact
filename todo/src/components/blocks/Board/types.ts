@@ -20,4 +20,5 @@ export interface BoardState {
   tasks: BoardTasks
   columns: BoardColumns
   columnsOrder: Array<string>
+  filter: string
 }

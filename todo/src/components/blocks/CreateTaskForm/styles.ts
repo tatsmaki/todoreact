@@ -5,11 +5,12 @@ export const StyledForm = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 95%;
-  height: 9vw;
-  margin: auto;
+  height: calc(12vh + 3vw);
+  margin: 0.5vw auto;
 `;
 
 export const StyledWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 0.5vh;
 `;

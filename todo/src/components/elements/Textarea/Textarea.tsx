@@ -5,7 +5,7 @@ import { TextAreaProps, TextAreaState } from './types';
 import StyledTextarea from './styles';
 
 class TextArea extends PureComponent<TextAreaProps, TextAreaState> {
-  private textArea: RefObject<HTMLTextAreaElement>;
+  textArea: RefObject<HTMLTextAreaElement>;
 
   constructor(props: TextAreaProps) {
     super(props);
@@ -18,9 +18,10 @@ class TextArea extends PureComponent<TextAreaProps, TextAreaState> {
   }
 
   controlTextArea = (event: React.FormEvent<HTMLTextAreaElement>) => {
-    this.setState({ value: (event.target as HTMLTextAreaElement).value });
+    const { value } = event.target as HTMLTextAreaElement;
+    this.setState({ value });
     const { taskWrite } = this.props;
-    taskWrite(event);
+    taskWrite(value);
   };
 
   render() {
