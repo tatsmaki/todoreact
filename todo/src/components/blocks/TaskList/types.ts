@@ -1,4 +1,4 @@
-import { BoardTasks } from '../Board/BoardTypes';
+import { BoardTasks } from '../Board/types';
 
 export default interface TaskListProps {
   columnId: string

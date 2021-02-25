@@ -7,5 +7,6 @@ module.exports = {
   },
   rules: {
     "react/jsx-props-no-spreading": "off",
+    "react/state-in-constructor": 0,
   }
 };

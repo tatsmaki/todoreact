@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react';
 import { Draggable, DraggableProvided } from 'react-beautiful-dnd';
 
-import TaskProps from './TaskTypes';
+import TaskProps from './types';
 
 import Button from '../../elements/Button';
 
+import { StyledTask, StyledTaskDescription } from './styles';
+
 class Task extends PureComponent<TaskProps, {}> {
-  private deleteTask = () => {
+  deleteTask = () => {
     const { deleteTask, columnId, taskId } = this.props;
     deleteTask(columnId, taskId);
   };
@@ -16,20 +18,18 @@ class Task extends PureComponent<TaskProps, {}> {
     return (
       <Draggable draggableId={taskId} index={index}>
         {(provided: DraggableProvided) => (
-          <div
-            className="task"
+          <StyledTask
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <span className="description">
+            <StyledTaskDescription>
               {description}
-            </span>
-            <Button
-              click={this.deleteTask}
-              content="×"
-            />
-          </div>
+            </StyledTaskDescription>
+            <Button wide={false} handleClick={this.deleteTask}>
+              ×
+            </Button>
+          </StyledTask>
         )}
       </Draggable>
     );

@@ -1,30 +1,39 @@
 import React, { PureComponent, RefObject } from 'react';
 
-import TextareaProps from './TextareaTypes';
+import { TextAreaProps, TextAreaState } from './types';
 
-class Textarea extends PureComponent<TextareaProps, {}> {
-  private textarea: RefObject<HTMLTextAreaElement>;
+import StyledTextarea from './styles';
 
-  constructor(props: TextareaProps) {
+class TextArea extends PureComponent<TextAreaProps, TextAreaState> {
+  private textArea: RefObject<HTMLTextAreaElement>;
+
+  constructor(props: TextAreaProps) {
     super(props);
-    this.textarea = React.createRef();
+    this.state = { value: '' };
+    this.textArea = React.createRef();
   }
 
   componentDidMount() {
-    this.textarea.current.focus();
+    this.textArea.current.focus();
   }
 
-  render() {
+  controlTextArea = (event: React.FormEvent<HTMLTextAreaElement>) => {
+    this.setState({ value: (event.target as HTMLTextAreaElement).value });
     const { taskWrite } = this.props;
+    taskWrite(event);
+  };
+
+  render() {
+    const { value } = this.state;
     return (
-      <textarea
-        className="textarea"
+      <StyledTextarea
         placeholder="Enter a note"
-        ref={this.textarea}
-        onChange={taskWrite}
+        value={value}
+        ref={this.textArea}
+        onChange={this.controlTextArea}
       />
     );
   }
 }
 
-export default Textarea;
+export default TextArea;

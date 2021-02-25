@@ -1,31 +1,35 @@
 import React, { PureComponent } from 'react';
 
-import CreateTaskFormProps from './CreateTaskFormTypes';
+import CreateTaskFormProps from './types';
 
-import Textarea from '../../elements/Textarea';
+import TextArea from '../../elements/TextArea';
 import Button from '../../elements/Button';
+
+import { StyledForm, StyledWrapper } from './styles';
 
 class CreateTaskForm extends PureComponent<CreateTaskFormProps, {}> {
   render() {
-    const { isRender } = this.props;
-    const { taskWrite, confirmNewTask, canselNewTask } = this.props;
+    const {
+      isRender,
+      taskWrite,
+      confirmNewTask,
+      canselNewTask,
+    } = this.props;
     if (isRender) {
       return (
-        <div className="form">
-          <Textarea
+        <StyledForm>
+          <TextArea
             taskWrite={taskWrite}
           />
-          <div className="buttons">
-            <Button
-              click={confirmNewTask}
-              content="Add"
-            />
-            <Button
-              click={canselNewTask}
-              content="Cansel"
-            />
-          </div>
-        </div>
+          <StyledWrapper>
+            <Button wide handleClick={confirmNewTask}>
+              Add
+            </Button>
+            <Button wide handleClick={canselNewTask}>
+              Cansel
+            </Button>
+          </StyledWrapper>
+        </StyledForm>
       );
     }
     return <div />;

@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { Droppable, DroppableProvided } from 'react-beautiful-dnd';
 
-import TaskListProps from './TaskListTypes';
+import TaskListProps from './types';
 
 import Task from '../Task';
 
 class TaskList extends Component<TaskListProps, {}> {
-  constructor(props: TaskListProps) {
-    super(props);
-    this.state = {};
-  }
-
   render() {
     const {
       columnId,
