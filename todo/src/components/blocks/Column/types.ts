@@ -1,4 +1,4 @@
-import { BoardTasks } from '../Board/types';
+import { BoardTasks } from '../board/types';
 
 export interface ColumnProps {
   count: number

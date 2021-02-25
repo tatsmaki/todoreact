@@ -3,7 +3,7 @@ import { Draggable, DraggableProvided } from 'react-beautiful-dnd';
 
 import TaskProps from './types';
 
-import Button from '../../elements/Button';
+import Button from '../../elements/button';
 
 import { StyledTask, StyledTaskDescription, StyledTaskToolsWrapper } from './styles';
 

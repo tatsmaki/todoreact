@@ -3,7 +3,7 @@ import { Droppable, DroppableProvided } from 'react-beautiful-dnd';
 
 import TaskListProps from './types';
 
-import Task from '../Task';
+import Task from '../task';
 
 import StyledTaskList from './styles';
 

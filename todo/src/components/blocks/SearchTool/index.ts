@@ -1,3 +1,3 @@
-import SearchTool from './SearchTool';
+import SearchTool from './searchTool';
 
 export default SearchTool;
