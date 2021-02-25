@@ -61,7 +61,7 @@ class Column extends Component<ColumnProps, ColumnState> {
         <StyledColumnTools>
           <StyledHeader>
             <StyledTaskCount>
-              {count}
+              <span>{count}</span>
             </StyledTaskCount>
             <StyledTitle>
               {title}

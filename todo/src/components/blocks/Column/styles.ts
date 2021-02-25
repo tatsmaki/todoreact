@@ -27,10 +27,12 @@ export const StyledHeader = styled.div`
 `;
 
 export const StyledTaskCount = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 2.4vw;
   height: 2.4vw;
   background: rgba(155, 141, 141, 0.3);
-  text-align: center;
   border-radius: 50%;
 `;
 
