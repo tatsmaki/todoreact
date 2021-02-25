@@ -1,20 +1,17 @@
-import React, { Component } from 'react';
+import React, { PureComponent, RefObject } from 'react';
 
-interface TextareaProps {
-  taskWrite: (event: React.FormEvent<HTMLTextAreaElement>) => void;
-}
+import TextareaProps from './TextareaTypes';
 
-class Textarea extends Component<TextareaProps, {}> {
-  textarea: HTMLTextAreaElement;
+class Textarea extends PureComponent<TextareaProps, {}> {
+  private textarea: RefObject<HTMLTextAreaElement>;
 
   constructor(props: TextareaProps) {
     super(props);
-
-    this.textarea = null;
+    this.textarea = React.createRef();
   }
 
   componentDidMount() {
-    this.textarea.focus();
+    this.textarea.current.focus();
   }
 
   render() {
@@ -23,10 +20,8 @@ class Textarea extends Component<TextareaProps, {}> {
       <textarea
         className="textarea"
         placeholder="Enter a note"
+        ref={this.textarea}
         onChange={taskWrite}
-        ref={(textarea: HTMLTextAreaElement) => {
-          this.textarea = textarea;
-        }}
       />
     );
   }
