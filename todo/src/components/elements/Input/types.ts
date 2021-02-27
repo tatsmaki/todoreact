@@ -1,5 +1,6 @@
 export interface InputProps {
-  filterCards: (value: string) => void
+  placeholder: string
+  handleInput: (value: string) => void
 }
 
 export interface InputState {

@@ -1,8 +1,7 @@
 import React, { PureComponent, RefObject } from 'react';
 
-import { TextAreaProps, TextAreaState } from './types';
-
 import StyledTextarea from './styles';
+import { TextAreaProps, TextAreaState } from './types';
 
 class TextArea extends PureComponent<TextAreaProps, TextAreaState> {
   textArea: RefObject<HTMLTextAreaElement>;

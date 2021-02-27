@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 
-import CreateTaskFormProps from './types';
-
-import TextArea from '../../elements/TextArea';
-import Button from '../../elements/Button';
+import TextArea from 'components/elements/TextArea';
+import Button from 'components/elements/Button';
 
 import { StyledForm, StyledWrapper } from './styles';
+import CreateTaskFormProps from './types';
 
 class CreateTaskForm extends PureComponent<CreateTaskFormProps, {}> {
   render() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Board from './components/blocks/Board';
+import App from 'components/App';
 
-ReactDOM.render(React.createElement(Board), document.getElementById('root'));
+ReactDOM.render(React.createElement(App), document.getElementById('root'));

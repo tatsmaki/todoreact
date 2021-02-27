@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Draggable, DraggableProvided } from 'react-beautiful-dnd';
 
-import TaskProps from './types';
-
-import Button from '../../elements/Button';
+import Button from 'components/elements/Button';
 
 import { StyledTask, StyledTaskDescription, StyledTaskToolsWrapper } from './styles';
+import TaskProps from './types';
 
 class Task extends PureComponent<TaskProps, {}> {
   deleteTask = () => {

@@ -1,4 +1,6 @@
 export interface BoardProps {
+  data: BoardState
+  updateLocalStorage: () => void
 }
 
 export type BoardTasks = {

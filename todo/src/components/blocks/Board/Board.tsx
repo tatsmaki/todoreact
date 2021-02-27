@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 
-import { BoardProps, BoardState } from './types';
-import initialBoard from './initialBoard';
-
-import Column from '../Column';
+import Column from 'components/blocks/Column';
+import SearchTool from 'components/blocks/SearchTool';
 
 import { StyledBoard, StyledBoardTools, StyledColumns } from './styles';
-import SearchTool from '../SearchTool';
+import { BoardProps, BoardState } from './types';
 
 class Board extends Component<BoardProps, BoardState> {
-  state: BoardState = initialBoard;
+  constructor(props: BoardProps) {
+    super(props);
+
+    const { data } = this.props;
+    this.state = data;
+  }
 
   addNewTask = (columnId: string, description: string) => {
     if (description) {
@@ -22,7 +25,8 @@ class Board extends Component<BoardProps, BoardState> {
         content: description,
       };
       newState.columns[columnId].tasksOrder.unshift(newTaskId);
-      this.setState(newState);
+      const { updateLocalStorage } = this.props;
+      this.setState(newState, updateLocalStorage);
     }
   };
 
@@ -31,7 +35,8 @@ class Board extends Component<BoardProps, BoardState> {
     delete newState.tasks[taskId];
     newState.columns[columnId].tasksOrder = newState.columns[columnId].tasksOrder
       .filter((id: string) => id !== taskId);
-    this.setState(newState);
+    const { updateLocalStorage } = this.props;
+    this.setState(newState, updateLocalStorage);
   };
 
   onDragEnd = (result: DropResult) => {
@@ -52,15 +57,11 @@ class Board extends Component<BoardProps, BoardState> {
           tasksOrder: newTasksOrder,
         };
 
-        const newState = {
-          ...this.state,
-          columns: {
-            ...columns,
-            [newColumn.id]: newColumn,
-          },
-        };
+        const newState = { ...this.state };
+        newState.columns[newColumn.id] = newColumn;
 
-        this.setState(newState);
+        const { updateLocalStorage } = this.props;
+        this.setState(newState, updateLocalStorage);
       } else {
         const startTasksOrder = Array.from(start.tasksOrder);
         startTasksOrder.splice(source.index, 1);
@@ -76,16 +77,12 @@ class Board extends Component<BoardProps, BoardState> {
           tasksOrder: finishTasksOrder,
         };
 
-        const newState = {
-          ...this.state,
-          columns: {
-            ...columns,
-            [newStart.id]: newStart,
-            [newFinish.id]: newFinish,
-          },
-        };
+        const newState = { ...this.state };
+        newState.columns[newStart.id] = newStart;
+        newState.columns[newFinish.id] = newFinish;
 
-        this.setState(newState);
+        const { updateLocalStorage } = this.props;
+        this.setState(newState, updateLocalStorage);
       }
     }
   };
@@ -110,8 +107,8 @@ class Board extends Component<BoardProps, BoardState> {
         </StyledBoardTools>
         <StyledColumns>
           <DragDropContext onDragEnd={this.onDragEnd}>
-            {columnsOrder.map((id: string) => {
-              const column = columns[id];
+            {columnsOrder.map((columnId: string) => {
+              const column = columns[columnId];
               return (
                 <Column
                   count={column.tasksOrder.length}
