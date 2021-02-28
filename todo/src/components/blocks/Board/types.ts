@@ -1,6 +1,10 @@
 export interface BoardProps {
-  data: BoardState
-  updateLocalStorage: () => void
+  boardData: BoardData
+  updateAppState: (boardData: BoardData) => void
+}
+
+export interface BoardState {
+  filter: string
 }
 
 export type BoardTasks = {
@@ -18,9 +22,8 @@ export type BoardColumns = {
   }
 };
 
-export interface BoardState {
+export interface BoardData {
   tasks: BoardTasks
   columns: BoardColumns
   columnsOrder: Array<string>
-  filter: string
 }

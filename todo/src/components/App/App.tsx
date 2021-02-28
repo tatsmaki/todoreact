@@ -9,7 +9,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import CreateBoard from 'components/blocks/CreateBoard';
 import Board from 'components/blocks/Board';
-import initialBoard from 'components/blocks/Board/initialBoard';
+import { BoardData } from 'components/blocks/Board/types';
+import InitialBoard from 'components/blocks/Board/initialBoard';
 
 import { StyledApp, StyledLi } from './styles';
 import { AppProps, AppState, BoardType } from './types';
@@ -24,23 +25,23 @@ class App extends Component<AppProps, AppState> {
       const savedState = JSON.parse(localStorage.getItem('react-boards'));
       this.state = savedState;
     }
+
+    window.onbeforeunload = () => {
+      localStorage.setItem('react-boards', JSON.stringify(this.state));
+    };
   }
 
   createNewBoard = (name: string) => {
     const id = uuidv4();
     const newState = { ...this.state };
-    newState.boards[id] = {
-      name,
-      id,
-      data: { ...initialBoard },
-    };
+    newState.boards[id] = new InitialBoard(id, name);
     newState.activeBoard = id;
     this.setState(newState);
   };
 
   setActiveLink = (event: any) => {
     const linkId = event.target.id;
-    this.setState({ activeBoard: linkId }, this.updateLocalStorage);
+    this.setState({ activeBoard: linkId });
   };
 
   checkActiveLink = (linkId: string) => {
@@ -51,8 +52,11 @@ class App extends Component<AppProps, AppState> {
     return false;
   };
 
-  updateLocalStorage = () => {
-    localStorage.setItem('react-boards', JSON.stringify(this.state));
+  updateAppState = (boardData: BoardData) => {
+    const { activeBoard } = this.state;
+    const newState = { ...this.state };
+    newState.boards[activeBoard].data = boardData;
+    this.setState(newState);
   };
 
   render() {
@@ -60,8 +64,8 @@ class App extends Component<AppProps, AppState> {
     const WrappedBoard = (props: any) => (
       <Board
         {...props}
-        data={activeBoard === 'add' ? { ...initialBoard } : boards[activeBoard].data}
-        updateLocalStorage={this.updateLocalStorage}
+        boardData={boards[activeBoard].data}
+        updateAppState={this.updateAppState}
       />
     );
     return (

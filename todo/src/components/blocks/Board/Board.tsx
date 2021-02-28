@@ -6,42 +6,40 @@ import Column from 'components/blocks/Column';
 import SearchTool from 'components/blocks/SearchTool';
 
 import { StyledBoard, StyledBoardTools, StyledColumns } from './styles';
-import { BoardProps, BoardState } from './types';
+import { BoardProps, BoardState, BoardData } from './types';
 
 class Board extends Component<BoardProps, BoardState> {
-  constructor(props: BoardProps) {
-    super(props);
-
-    const { data } = this.props;
-    this.state = data;
-  }
+  state = { filter: '' };
 
   addNewTask = (columnId: string, description: string) => {
     if (description) {
-      const newState = { ...this.state };
+      const { boardData } = this.props;
       const newTaskId = uuidv4();
-      newState.tasks[newTaskId] = {
+
+      boardData.tasks[newTaskId] = {
         id: newTaskId,
         content: description,
       };
-      newState.columns[columnId].tasksOrder.unshift(newTaskId);
-      const { updateLocalStorage } = this.props;
-      this.setState(newState, updateLocalStorage);
+      boardData.columns[columnId].tasksOrder.unshift(newTaskId);
+
+      this.updateAppState(boardData);
     }
   };
 
   deleteTask = (columnId: string, taskId: string) => {
-    const newState = { ...this.state };
-    delete newState.tasks[taskId];
-    newState.columns[columnId].tasksOrder = newState.columns[columnId].tasksOrder
+    const { boardData } = this.props;
+
+    delete boardData.tasks[taskId];
+    boardData.columns[columnId].tasksOrder = boardData.columns[columnId].tasksOrder
       .filter((id: string) => id !== taskId);
-    const { updateLocalStorage } = this.props;
-    this.setState(newState, updateLocalStorage);
+
+    this.updateAppState(boardData);
   };
 
   onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
-    const { columns } = this.state;
+    const { boardData } = this.props;
+    const { columns } = boardData;
 
     if (destination) {
       const start = columns[source.droppableId];
@@ -56,12 +54,9 @@ class Board extends Component<BoardProps, BoardState> {
           ...start,
           tasksOrder: newTasksOrder,
         };
+        boardData.columns[newColumn.id] = newColumn;
 
-        const newState = { ...this.state };
-        newState.columns[newColumn.id] = newColumn;
-
-        const { updateLocalStorage } = this.props;
-        this.setState(newState, updateLocalStorage);
+        this.updateAppState(boardData);
       } else {
         const startTasksOrder = Array.from(start.tasksOrder);
         startTasksOrder.splice(source.index, 1);
@@ -77,12 +72,10 @@ class Board extends Component<BoardProps, BoardState> {
           tasksOrder: finishTasksOrder,
         };
 
-        const newState = { ...this.state };
-        newState.columns[newStart.id] = newStart;
-        newState.columns[newFinish.id] = newFinish;
+        boardData.columns[newStart.id] = newStart;
+        boardData.columns[newFinish.id] = newFinish;
 
-        const { updateLocalStorage } = this.props;
-        this.setState(newState, updateLocalStorage);
+        this.updateAppState(boardData);
       }
     }
   };
@@ -91,13 +84,15 @@ class Board extends Component<BoardProps, BoardState> {
     this.setState({ filter: value });
   };
 
+  updateAppState = (boardData: BoardData) => {
+    const { updateAppState } = this.props;
+    updateAppState(boardData);
+  };
+
   render() {
-    const {
-      tasks,
-      columns,
-      columnsOrder,
-      filter,
-    } = this.state;
+    const { boardData } = this.props;
+    const { tasks, columns, columnsOrder } = boardData;
+    const { filter } = this.state;
     return (
       <StyledBoard>
         <StyledBoardTools>
