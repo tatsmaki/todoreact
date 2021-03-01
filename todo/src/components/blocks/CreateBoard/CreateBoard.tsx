@@ -6,7 +6,10 @@ import Button from 'components/elements/Button';
 import StyledCreateBoard from './styles';
 
 interface CreateBoardProps {
-  createNewBoard: (name: string) => void
+  match: any
+  location: any
+  history: any
+  createNewBoard: (name: string, history: any) => void
 }
 
 interface CreateBoardState {
@@ -24,9 +27,10 @@ class CreateBoard extends Component<CreateBoardProps, CreateBoardState> {
 
   confirmName = () => {
     const { name } = this.state;
+    const { history } = this.props;
     if (name) {
       const { createNewBoard } = this.props;
-      createNewBoard(name);
+      createNewBoard(name, history);
       this.setState({ name: '' });
     }
   };
@@ -44,8 +48,6 @@ class CreateBoard extends Component<CreateBoardProps, CreateBoardState> {
           />
           <Button
             buttonWidth="17vw"
-            backgroundColor="none"
-            border="1px rgba(0, 0, 0, 0.1) solid"
             handleClick={this.confirmName}
           >
             Confirm

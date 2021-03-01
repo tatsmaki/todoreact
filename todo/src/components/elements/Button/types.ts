@@ -1,12 +1,13 @@
 export interface ButtonProps {
-  buttonWidth: string
-  backgroundColor: string
-  border: string
+  buttonWidth?: string
+  backgroundColor?: string
+  border?: string
   handleClick: () => void
 }
 
 export interface StyledButtonProps {
   buttonWidth: string
-  backgroundColor: string
-  border: string
+  backgroundColor?: string
+  border?: string
+  theme: any
 }

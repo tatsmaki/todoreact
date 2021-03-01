@@ -6,10 +6,12 @@ const StyledTextArea = styled.textarea`
   outline: none;
   box-sizing: border-box;
   padding: 0.5vw;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
+  border: 1px ${({ theme }) => theme.border} solid;
   border-radius: 0.5vw;
   font-size: 1.5vw;
   font-family: 'Open Sans', sans-serif;
+  color: ${({ theme }) => theme.text};
+  background: ${({ theme }) => theme.primary};
 `;
 
 export default StyledTextArea;

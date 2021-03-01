@@ -6,7 +6,7 @@ const StyledCreateBoard = styled.div`
   justify-content: center;
   width: 100vw;
   height: 95vh;
-  background: white;
+  background: ${({ theme }) => theme.primary};;
 
   div {
     display: flex;
@@ -14,6 +14,7 @@ const StyledCreateBoard = styled.div`
     align-items: center;
     justify-content: space-evenly;
     height: 30vh;
+    color: ${({ theme }) => theme.text};
 
     span {
     font-size: 2vw;

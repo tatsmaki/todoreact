@@ -30,7 +30,6 @@ class Task extends PureComponent<TaskProps, {}> {
             </StyledTaskDescription>
             <StyledTaskToolsWrapper>
               <Button
-                buttonWidth="3vw"
                 backgroundColor="none"
                 border="none"
                 handleClick={this.deleteTask}

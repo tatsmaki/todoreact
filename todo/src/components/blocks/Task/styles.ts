@@ -9,9 +9,10 @@ export const StyledTask = styled.div`
   box-sizing: border-box;
   margin: 0.5vw;
   padding-left: 0.5vw;
-  background: #ffffff;
+  background: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
   border-radius: 0.5vw;
-  border: 1px rgba(0, 0, 0, 0.1) solid;
+  border: 1px ${({ theme }) => theme.border} solid;
   flex-shrink: 0;
 `;
 

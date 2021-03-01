@@ -5,16 +5,16 @@ export const StyledBoard = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 95vh;
+  height: 94vh;
   width: 100vw;
-  background: white;
+  background: ${({ theme }) => theme.primary};
 `;
 
 export const StyledBoardTools = styled.div`
   display: flex;
   align-items: center;
   width: 95%;
-  height: 10vh;
+  height: 6vh;
 `;
 
 export const StyledColumns = styled.div`

@@ -67,7 +67,6 @@ class Column extends Component<ColumnProps, ColumnState> {
             </StyledTitle>
           </StyledHeader>
           <Button
-            buttonWidth="3vw"
             backgroundColor="none"
             border="none"
             handleClick={this.createNewTask}

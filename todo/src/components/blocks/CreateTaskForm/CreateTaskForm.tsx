@@ -23,16 +23,12 @@ class CreateTaskForm extends PureComponent<CreateTaskFormProps, {}> {
           <StyledWrapper>
             <Button
               buttonWidth="49%"
-              backgroundColor="#fff"
-              border="1px rgba(0, 0, 0, 0.1) solid"
               handleClick={confirmNewTask}
             >
               Add
             </Button>
             <Button
               buttonWidth="49%"
-              backgroundColor="#fff"
-              border="1px rgba(0, 0, 0, 0.1) solid"
               handleClick={canselNewTask}
             >
               Cansel
