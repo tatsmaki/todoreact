@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 
-import { ButtonProps } from './types';
-
 import StyledButton from './styles';
+import { ButtonProps } from './types';
 
 class Button extends PureComponent<ButtonProps, {}> {
   render() {

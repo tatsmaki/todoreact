@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Droppable, DroppableProvided } from 'react-beautiful-dnd';
 
-import TaskListProps from './types';
-
-import Task from '../Task';
+import Task from 'components/blocks/Task';
 
 import StyledTaskList from './styles';
+import TaskListProps from './types';
 
 class TaskList extends Component<TaskListProps, {}> {
   render() {

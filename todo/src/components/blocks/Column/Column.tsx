@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
-import { ColumnProps, ColumnState } from './types';
-
-import Button from '../../elements/Button';
-import CreateTaskForm from '../CreateTaskForm';
-import TaskList from '../TaskList';
+import Button from 'components/elements/Button';
+import CreateTaskForm from 'components/blocks/CreateTaskForm';
+import TaskList from 'components/blocks/TaskList';
 
 import {
   StyledColumn,
@@ -13,6 +11,7 @@ import {
   StyledColumnTools,
   StyledTaskCount,
 } from './styles';
+import { ColumnProps, ColumnState } from './types';
 
 class Column extends Component<ColumnProps, ColumnState> {
   state = {

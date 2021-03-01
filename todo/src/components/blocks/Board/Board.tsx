@@ -2,41 +2,44 @@ import React, { Component } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 
-import { BoardProps, BoardState } from './types';
-import initialBoard from './initialBoard';
-
-import Column from '../Column';
+import Column from 'components/blocks/Column';
+import SearchTool from 'components/blocks/SearchTool';
 
 import { StyledBoard, StyledBoardTools, StyledColumns } from './styles';
-import SearchTool from '../SearchTool';
+import { BoardProps, BoardState, BoardData } from './types';
 
 class Board extends Component<BoardProps, BoardState> {
-  state: BoardState = initialBoard;
+  state = { filter: '' };
 
   addNewTask = (columnId: string, description: string) => {
     if (description) {
-      const newState = { ...this.state };
+      const { boardData } = this.props;
       const newTaskId = uuidv4();
-      newState.tasks[newTaskId] = {
+
+      boardData.tasks[newTaskId] = {
         id: newTaskId,
         content: description,
       };
-      newState.columns[columnId].tasksOrder.unshift(newTaskId);
-      this.setState(newState);
+      boardData.columns[columnId].tasksOrder.unshift(newTaskId);
+
+      this.updateAppState(boardData);
     }
   };
 
   deleteTask = (columnId: string, taskId: string) => {
-    const newState = { ...this.state };
-    delete newState.tasks[taskId];
-    newState.columns[columnId].tasksOrder = newState.columns[columnId].tasksOrder
+    const { boardData } = this.props;
+
+    delete boardData.tasks[taskId];
+    boardData.columns[columnId].tasksOrder = boardData.columns[columnId].tasksOrder
       .filter((id: string) => id !== taskId);
-    this.setState(newState);
+
+    this.updateAppState(boardData);
   };
 
   onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
-    const { columns } = this.state;
+    const { boardData } = this.props;
+    const { columns } = boardData;
 
     if (destination) {
       const start = columns[source.droppableId];
@@ -51,16 +54,9 @@ class Board extends Component<BoardProps, BoardState> {
           ...start,
           tasksOrder: newTasksOrder,
         };
+        boardData.columns[newColumn.id] = newColumn;
 
-        const newState = {
-          ...this.state,
-          columns: {
-            ...columns,
-            [newColumn.id]: newColumn,
-          },
-        };
-
-        this.setState(newState);
+        this.updateAppState(boardData);
       } else {
         const startTasksOrder = Array.from(start.tasksOrder);
         startTasksOrder.splice(source.index, 1);
@@ -76,16 +72,10 @@ class Board extends Component<BoardProps, BoardState> {
           tasksOrder: finishTasksOrder,
         };
 
-        const newState = {
-          ...this.state,
-          columns: {
-            ...columns,
-            [newStart.id]: newStart,
-            [newFinish.id]: newFinish,
-          },
-        };
+        boardData.columns[newStart.id] = newStart;
+        boardData.columns[newFinish.id] = newFinish;
 
-        this.setState(newState);
+        this.updateAppState(boardData);
       }
     }
   };
@@ -94,13 +84,15 @@ class Board extends Component<BoardProps, BoardState> {
     this.setState({ filter: value });
   };
 
+  updateAppState = (boardData: BoardData) => {
+    const { updateAppState } = this.props;
+    updateAppState(boardData);
+  };
+
   render() {
-    const {
-      tasks,
-      columns,
-      columnsOrder,
-      filter,
-    } = this.state;
+    const { boardData } = this.props;
+    const { tasks, columns, columnsOrder } = boardData;
+    const { filter } = this.state;
     return (
       <StyledBoard>
         <StyledBoardTools>
@@ -110,8 +102,8 @@ class Board extends Component<BoardProps, BoardState> {
         </StyledBoardTools>
         <StyledColumns>
           <DragDropContext onDragEnd={this.onDragEnd}>
-            {columnsOrder.map((id: string) => {
-              const column = columns[id];
+            {columnsOrder.map((columnId: string) => {
+              const column = columns[columnId];
               return (
                 <Column
                   count={column.tasksOrder.length}

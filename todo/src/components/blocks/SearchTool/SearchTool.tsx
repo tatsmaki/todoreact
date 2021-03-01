@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 
-import SearchToolProps from './types';
-
-import Input from '../../elements/Input';
+import Input from 'components/elements/Input';
 
 import StyledSearchWrapper from './styles';
+import SearchToolProps from './types';
 
 class SearchTool extends PureComponent<SearchToolProps, {}> {
   render() {
@@ -15,7 +14,8 @@ class SearchTool extends PureComponent<SearchToolProps, {}> {
           search
         </span>
         <Input
-          filterCards={filterCards}
+          placeholder="Filter Cards"
+          handleInput={filterCards}
         />
       </StyledSearchWrapper>
     );

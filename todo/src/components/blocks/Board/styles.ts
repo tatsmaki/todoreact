@@ -5,11 +5,9 @@ export const StyledBoard = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
+  height: 95vh;
   width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
+  background: white;
 `;
 
 export const StyledBoardTools = styled.div`

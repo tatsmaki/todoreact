@@ -5,7 +5,7 @@ export const StyledTask = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 95%;
-  height: 12vh;
+  min-height: 12vh;
   box-sizing: border-box;
   margin: 0.5vw;
   padding-left: 0.5vw;
