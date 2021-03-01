@@ -1,5 +1,5 @@
 ### github projects board
-https://project-board-ge7f7nqvh-tatsmaki.vercel.app/
+https://project-board-ge7f7nqvh-tatsmaki.vercel.app/  
 https://project-board-tatsmaki.vercel.app/
 
 ## About The Project
