@@ -14,4 +14,11 @@ export interface AppState {
     [key: string]: BoardType
   }
   activeBoard: string
+  isDarkTheme: boolean
 }
+
+export type ThemeType = {
+  body: string
+  text: string
+  border: string
+};

@@ -6,6 +6,9 @@ const StyledInput = styled.input`
   font-size: 1.5vw;
   outline: none;
   font-family: 'Open Sans', sans-serif;
+  color: ${({ theme }) => theme.text};
+  background: ${({ theme }) => theme.secondary};
+  border: ${({ theme }) => theme.border};
 `;
 
 export default StyledInput;

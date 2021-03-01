@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface StyledLiProps {
   isActive: boolean
+  theme: any
 }
 
 export const StyledApp = styled.div`
@@ -10,44 +11,58 @@ export const StyledApp = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #a1a1a1cc;
+  background: ${(props: any) => props.children.props.theme.secondary};
+`;
 
-  ul {
-    display: flex;
-    width: 100vw;
-    height: 5vh;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
+export const StyledUl = styled.ul`
+  display: flex;
+  width: 100vw;
+  height: 6vh;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 `;
 
 export const StyledLi = styled.li`
-  ${(props: StyledLiProps) => {
+  background: ${(props: StyledLiProps) => {
     switch (props.isActive) {
       case true: {
-        return 'background: white;';
+        return props.theme.primary;
       }
       default: {
-        return 'background: #ffffffbb;';
+        return `${props.theme.secondary}`;
       }
     }
-  }}
+  }};
   font-family: 'Open Sans', sans-serif;
-  font-size: 2vw;
+  font-size: 1.8vw;
 
   a {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 20vw;
-    height: 5vh;
+    height: 6vh;
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.text};
 
     &:hover {
-      background: #ffffffaa;
+      filter: invert(.2) sepia(1);
     }
   }
 `;
+
+export const lightTheme = {
+  primary: 'white',
+  secondary: '#e6e6e6',
+  text: 'black',
+  border: '#c9c9c9',
+};
+
+export const darkTheme = {
+  primary: '#1f1f1f',
+  secondary: '#3d3d3d',
+  text: 'white',
+  border: '#1b1b1b',
+};

@@ -6,9 +6,10 @@ export const StyledColumn = styled.div`
   width: 30vw;
   height: 80vh;
   box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.05);
+  background: ${({ theme }) => theme.secondary};
   border-radius: 0.5vw;
   border: 1px rgba(0, 0, 0, 0.1) solid;
+  border: 1px ${({ theme }) => theme.border} solid;
 `;
 
 export const StyledColumnTools = styled.div`
@@ -24,6 +25,7 @@ export const StyledColumnTools = styled.div`
 export const StyledHeader = styled.div`
   display: flex;
   font-family: 'Open Sans', sans-serif;
+  color: ${({ theme }) => theme.text};
 `;
 
 export const StyledTaskCount = styled.span`
