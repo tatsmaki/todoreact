@@ -32,9 +32,10 @@ class App extends Component<AppProps, AppState> {
     this.state = initialApp;
     this.isLoading = true;
 
-    window.onbeforeunload = () => {
-      localStorage.setItem('react-boards', JSON.stringify(this.state));
-    };
+    /* Working */
+    // window.onbeforeunload = () => {
+    //   localStorage.setItem('react-boards', JSON.stringify(this.state));
+    // };
   }
 
   componentDidMount() {
@@ -45,7 +46,9 @@ class App extends Component<AppProps, AppState> {
     this.isLoading = false;
   }
 
+  /* Not Working */
   componentWillUnmount() {
+    localStorage.setItem('react-boards', JSON.stringify(this.state));
   }
 
   createNewBoard = (name: string, history: any) => {
