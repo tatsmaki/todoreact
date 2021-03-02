@@ -10,6 +10,7 @@ class Button extends PureComponent<ButtonProps, {}> {
       buttonWidth,
       backgroundColor,
       border,
+      isHidden,
       handleClick,
     } = this.props;
     return (
@@ -17,6 +18,7 @@ class Button extends PureComponent<ButtonProps, {}> {
         buttonWidth={buttonWidth}
         backgroundColor={backgroundColor}
         border={border}
+        isHidden={isHidden}
         onClick={handleClick}
       >
         {children}

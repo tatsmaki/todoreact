@@ -36,6 +36,14 @@ class Board extends Component<BoardProps, BoardState> {
     this.updateAppState(boardData);
   };
 
+  editTask = (description: string, taskId: string) => {
+    const { boardData } = this.props;
+
+    boardData.tasks[taskId].content = description;
+
+    this.updateAppState(boardData);
+  };
+
   onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
     const { boardData } = this.props;
@@ -115,6 +123,7 @@ class Board extends Component<BoardProps, BoardState> {
                   filter={filter}
                   addNewTask={this.addNewTask}
                   deleteTask={this.deleteTask}
+                  editTask={this.editTask}
                 />
               );
             })}

@@ -9,6 +9,7 @@ export interface ColumnProps {
   filter: string
   addNewTask: (columnId: string, description: string) => void
   deleteTask: (columnId: string, taskId: string) => void
+  editTask: (description: string, taskId: string) => void
 }
 
 export interface ColumnState {

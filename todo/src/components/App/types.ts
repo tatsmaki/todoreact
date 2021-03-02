@@ -18,7 +18,9 @@ export interface AppState {
 }
 
 export type ThemeType = {
-  body: string
+  primary: string
+  secondary: string
+  drag: string
   text: string
   border: string
 };

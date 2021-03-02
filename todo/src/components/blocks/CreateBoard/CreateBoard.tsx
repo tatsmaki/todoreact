@@ -28,6 +28,7 @@ class CreateBoard extends Component<CreateBoardProps, CreateBoardState> {
   confirmName = () => {
     const { name } = this.state;
     const { history } = this.props;
+
     if (name) {
       const { createNewBoard } = this.props;
       createNewBoard(name, history);

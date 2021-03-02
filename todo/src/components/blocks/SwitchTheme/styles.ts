@@ -41,4 +41,8 @@ export const StyledBackground = styled.div`
   color: ${({ theme }) => theme.text};
   border-radius: 2vw;
   user-select: none;
+
+  .material-icons {
+    font-size: 2vw;
+  }
 `;
