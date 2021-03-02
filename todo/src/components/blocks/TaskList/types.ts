@@ -6,4 +6,5 @@ export default interface TaskListProps {
   tasksOrder: Array<string>
   filter: string
   deleteTask: (columnId: string, taskId: string) => void
+  editTask: (description: string, taskId: string) => void
 }

@@ -8,6 +8,11 @@ export const StyledBoard = styled.div`
   height: 94vh;
   width: 100vw;
   background: ${({ theme }) => theme.primary};
+
+  @media (max-width: 1024px) {
+    overflow-x: scroll;
+    align-items: start;
+  }
 `;
 
 export const StyledBoardTools = styled.div`
@@ -21,4 +26,9 @@ export const StyledColumns = styled.div`
   display: flex;
   justify-content: space-between;
   width: 95%;
+
+  @media (max-width: 1024px) {
+    justify-content: space-evenly;
+    width: 190vw;
+  }
 `;

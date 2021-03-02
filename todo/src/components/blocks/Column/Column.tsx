@@ -53,6 +53,7 @@ class Column extends Component<ColumnProps, ColumnState> {
       tasksOrder,
       filter,
       deleteTask,
+      editTask,
     } = this.props;
     const { isCreateNewTask } = this.state;
     return (
@@ -88,6 +89,7 @@ class Column extends Component<ColumnProps, ColumnState> {
           tasksOrder={tasksOrder}
           filter={filter}
           deleteTask={deleteTask}
+          editTask={editTask}
         />
       </StyledColumn>
     );

@@ -14,12 +14,14 @@ class TaskList extends Component<TaskListProps, {}> {
       tasksOrder,
       filter,
       deleteTask,
+      editTask,
     } = this.props;
     return (
       <Droppable droppableId={columnId}>
-        {(provided: DroppableProvided) => (
+        {(provided: DroppableProvided, snapshot: any) => (
           <StyledTaskList
             ref={provided.innerRef}
+            isDraggingOver={snapshot.isDraggingOver}
             {...provided.droppableProps}
           >
             {
@@ -35,6 +37,7 @@ class TaskList extends Component<TaskListProps, {}> {
                       columnId={columnId}
                       taskId={task.id}
                       deleteTask={deleteTask}
+                      editTask={editTask}
                     />
                   );
                 })

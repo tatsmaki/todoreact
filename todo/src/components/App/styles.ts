@@ -25,15 +25,14 @@ export const StyledUl = styled.ul`
 `;
 
 export const StyledLi = styled.li`
+  display: flex;
+  align-items: center;
+  width: 20vw;
   background: ${(props: StyledLiProps) => {
-    switch (props.isActive) {
-      case true: {
-        return props.theme.primary;
-      }
-      default: {
-        return `${props.theme.secondary}`;
-      }
+    if (props.isActive) {
+      return props.theme.primary;
     }
+    return props.theme.secondary;
   }};
   font-family: 'Open Sans', sans-serif;
   font-size: 1.8vw;
@@ -51,11 +50,25 @@ export const StyledLi = styled.li`
       filter: invert(.2) sepia(1);
     }
   }
+
+  .close {
+    display: ${(props: StyledLiProps) => {
+    /* eslint-disable */
+      if (props.isActive) {
+        return 'flex';
+      }
+      return 'none';
+    }};
+    position: absolute;
+    width: 0;
+    margin-left: 18vw;
+  }
 `;
 
 export const lightTheme = {
   primary: 'white',
   secondary: '#e6e6e6',
+  drag: '#b9b9b9',
   text: 'black',
   border: '#c9c9c9',
 };
@@ -63,6 +76,7 @@ export const lightTheme = {
 export const darkTheme = {
   primary: '#1f1f1f',
   secondary: '#3d3d3d',
+  drag: '#5f5f5f',
   text: 'white',
   border: '#1b1b1b',
 };

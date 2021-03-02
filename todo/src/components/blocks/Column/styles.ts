@@ -10,6 +10,10 @@ export const StyledColumn = styled.div`
   border-radius: 0.5vw;
   border: 1px rgba(0, 0, 0, 0.1) solid;
   border: 1px ${({ theme }) => theme.border} solid;
+
+  @media (max-width: 1024px) {
+    width: 60vw;
+  }
 `;
 
 export const StyledColumnTools = styled.div`
@@ -26,6 +30,7 @@ export const StyledHeader = styled.div`
   display: flex;
   font-family: 'Open Sans', sans-serif;
   color: ${({ theme }) => theme.text};
+  font-size: 1.4vw;
 `;
 
 export const StyledTaskCount = styled.span`

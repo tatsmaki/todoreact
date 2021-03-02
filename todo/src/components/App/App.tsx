@@ -5,7 +5,6 @@ import {
   Switch,
   Route,
   Link,
-  withRouter,
 } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -26,20 +25,27 @@ import { AppProps, AppState, BoardType } from './types';
 import initialApp from './initialApp';
 
 class App extends Component<AppProps, AppState> {
+  isLoading: boolean;
+
   constructor(props: AppProps) {
     super(props);
     this.state = initialApp;
-    this.getLocalStorageData();
-  }
+    this.isLoading = true;
 
-  getLocalStorageData() {
-    if (JSON.parse(localStorage.getItem('react-boards'))) {
-      const savedState = JSON.parse(localStorage.getItem('react-boards'));
-      this.state = savedState;
-    }
     window.onbeforeunload = () => {
       localStorage.setItem('react-boards', JSON.stringify(this.state));
     };
+  }
+
+  componentDidMount() {
+    if (JSON.parse(localStorage.getItem('react-boards'))) {
+      const savedState = JSON.parse(localStorage.getItem('react-boards'));
+      this.setState(savedState);
+    }
+    this.isLoading = false;
+  }
+
+  componentWillUnmount() {
   }
 
   createNewBoard = (name: string, history: any) => {
@@ -58,10 +64,7 @@ class App extends Component<AppProps, AppState> {
 
   checkActiveLink = (linkId: string) => {
     const { activeBoard } = this.state;
-    if (linkId === activeBoard) {
-      return true;
-    }
-    return false;
+    return linkId === activeBoard;
   };
 
   updateAppState = (boardData: BoardData) => {
@@ -75,18 +78,24 @@ class App extends Component<AppProps, AppState> {
     this.setState({ isDarkTheme });
   };
 
+  deleteBoard = () => {
+    const { activeBoard } = this.state;
+    const newState = { ...this.state };
+    delete newState.boards[activeBoard];
+    newState.activeBoard = 'add';
+    this.setState(newState);
+  };
+
   render() {
     const { boards, activeBoard, isDarkTheme } = this.state;
-    const WrappedBoard = (props: any) => (
-      <Board
-        {...props}
-        boardData={boards[activeBoard].data}
-        updateAppState={this.updateAppState}
-        isDarkTheme={isDarkTheme}
-        changeTheme={this.changeTheme}
-      />
-    );
-    const CreateBoardWithRouter = withRouter(CreateBoard);
+
+    let boardData: BoardType;
+    if (this.isLoading) {
+      boardData = new InitialBoard('id', 'name');
+    } else {
+      boardData = boards[activeBoard];
+    }
+
     return (
       <StyledApp>
         <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
@@ -110,6 +119,15 @@ class App extends Component<AppProps, AppState> {
                       >
                         {board.name}
                       </Link>
+                      <Link
+                        to="/"
+                        className="close"
+                        onClick={this.deleteBoard}
+                      >
+                        <span className="material-icons">
+                          close
+                        </span>
+                      </Link>
                     </StyledLi>
                   ))
                 }
@@ -127,13 +145,30 @@ class App extends Component<AppProps, AppState> {
                   </Link>
                 </StyledLi>
               </StyledUl>
+
               <Switch>
-                <Route exact path="/">
-                  <CreateBoardWithRouter
-                    createNewBoard={this.createNewBoard}
-                  />
-                </Route>
-                <Route path="/:board" component={WrappedBoard} />
+                <Route
+                  exact
+                  path="/"
+                  render={(props: any) => (
+                    <CreateBoard
+                      createNewBoard={this.createNewBoard}
+                      {...props}
+                    />
+                  )}
+                />
+                <Route
+                  path="/:board"
+                  render={(props: any) => (
+                    <Board
+                      boardData={boardData.data}
+                      updateAppState={this.updateAppState}
+                      isDarkTheme={isDarkTheme}
+                      changeTheme={this.changeTheme}
+                      {...props}
+                    />
+                  )}
+                />
               </Switch>
             </div>
           </Router>

@@ -3,6 +3,12 @@ import styled from 'styled-components';
 import { StyledButtonProps } from './types';
 
 const StyledButton = styled.button`
+  display: ${(props: StyledButtonProps) => {
+    if (!props.isHidden === false) {
+      return 'none';
+    }
+    return 'static';
+  }};
   width: ${(props: StyledButtonProps) => {
     if (props.buttonWidth) {
       return props.buttonWidth;
@@ -27,6 +33,16 @@ const StyledButton = styled.button`
   outline: none;
   color: ${({ theme }) => theme.text};
   transition: filter .2s linear;
+
+  .material-icons {
+    font-size: 1.6vw;
+    user-select: none;
+
+    @media (max-width: 1024px) {
+      font-size: 3vw;
+      margin-left: -3vw;
+    }
+  }
 
   &:hover {
     cursor: pointer;
